@@ -1,0 +1,11 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $link = 'https://github.com/vim/vim.git';
+
+my $clone = system("git clone https://github.com/vim/vim.git");
+chdir "vim";
+system("make");
+system("make install");
