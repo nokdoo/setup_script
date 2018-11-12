@@ -9,3 +9,6 @@ my $clone = system("git clone https://github.com/vim/vim.git");
 chdir "vim";
 system("make");
 system("make install");
+system("make install clean");
+chdir "../";
+system("rm -r vim");
