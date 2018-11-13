@@ -16,5 +16,4 @@ sub pkg{
 
 my $pkg = pkg();
 my $command = join ' ', @ARGV;
-print $pkg."\n";
-#system("$pkg $command");
+system("$pkg $command");
