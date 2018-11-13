@@ -1,0 +1,30 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $shell = `echo \$SHELL`;
+
+# csh
+if($shell =~ qr/.*\/csh$/)
+{
+	my $rc;
+	open $rc, ">>", "$ENV{HOME}/.cshrc";
+	if($ARGV[0] eq "path")
+	{
+		print $rc "\nset path=($ARGV[1] \$path)\n";
+	}
+	elsif($ARGV[0] eq "alias")
+	{
+		open $rc, ">>", "$ENV{HOME}/.cshrc";
+		print $rc "\n$ARGV[0] $ARGV[1] $ARGV[2]\n";
+	}
+	elsif($ARGV[0] eq "JAVA_HOME")
+	{
+		print $rc "\nset $ARGV[0]=($ARGV[1])\n";
+		print $rc "set path=($ARGV[0]/bin \$path)\n";
+	}
+	close $rc;
+
+	system("$shell $ENV{HOME}/.cshrc");
+}

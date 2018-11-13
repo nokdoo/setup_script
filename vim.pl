@@ -12,3 +12,16 @@ system("make install");
 system("make install clean");
 chdir "../";
 system("rm -r vim");
+
+# aliasing
+my $shell = `echo $SHELL`;
+if($shell =~ qr/csh/){
+	system "./setrc alias vi vim";
+}
+
+# xclip
+system("./pkg install -y xclip");
+
+# .vimrc
+system("wget https://raw.githubusercontent.com/nokdoo/setup_script/master/.vimrc");
+system("mv .vimrc $ENV{"HOME"}");

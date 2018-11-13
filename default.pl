@@ -3,17 +3,6 @@
 use strict;
 use warnings;
 
-
-# package manager
-sub pkg{
-	my $system = `uname`;
-	chomp $system;
-	$system = "pkg" if ($system eq "FreeBSD");
-	return $system;
-}
-
-my $pkg = pkg();
-
 # shell
 sub shell{
 	my $shell = `echo \$SHELL`;
@@ -30,7 +19,7 @@ sub setupBash{
 	my $bash = findBash();
 	
 	if($bash !~ $bash_regex){
-		system "$pkg install -y bash";
+		system "./pkg install -y bash";
 	}
 	$bash = findBash();
 	
@@ -58,9 +47,13 @@ sub findBash{
 # Before you remove thie comment sign, you must complete part of '==bash=='. find this keyword on this script.
 # setupBash();
 
+system("chmod 755 pkg");
+
+system("chmod 755 setrc");
+
 # git
-system "$pkg install -y git";
+system "./pkg install -y git";
 
 # wget
-system "$pkg install -y wget";
+system "./pkg install -y wget";
 
