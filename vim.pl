@@ -24,5 +24,4 @@ if($shell =~ qr/csh/){
 system("./xclip");
 
 # .vimrc
-system("wget https://raw.githubusercontent.com/nokdoo/setup_script/master/.vimrc");
-system("mv .vimrc $ENV{HOME}");
+system("cp .vimrc $ENV{HOME}");
