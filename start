@@ -1,0 +1,13 @@
+pkg update
+pkg uppgrade
+
+pkg install ca_root_nss
+fetch perl-download-link
+cd perl...
+
+sh Configure -de
+make
+make test
+make install
+
+pkg install -y git

@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 
 use strict;
+
 use warnings;
 
 my $link = 'https://github.com/vim/vim.git';
@@ -20,7 +21,7 @@ if($shell =~ qr/csh/){
 }
 
 # xclip
-system("./pkg install -y xclip");
+system("./xclip");
 
 # .vimrc
 system("wget https://raw.githubusercontent.com/nokdoo/setup_script/master/.vimrc");
