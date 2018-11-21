@@ -1,7 +1,14 @@
 pkg update
-pkg uppgrade
-
+pkg upgrade
 pkg install ca_root_nss
+
+
+kldload linux
+또는
+kldload linux64
+(32/64 차이인듯)
+
+
 fetch perl-download-link
 cd perl...
 
