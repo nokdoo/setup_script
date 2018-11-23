@@ -3,4 +3,4 @@
 use strict;
 use warnings;
 
-system("./pkg install -y uim uim-gtk uim-gtk3");
+system("./pkg install -y uim uim-gtk2.0 uim-gtk3");

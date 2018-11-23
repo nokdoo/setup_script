@@ -3,14 +3,20 @@
 use warnings;
 use strict;
 
+
+
 sub pkg{
 	my $system = `uname`;
 	chomp $system;
 	my $pkg;
 	$pkg = "pkg" if ($system eq "FreeBSD");
 	
-	die "Can't find package" if ($pkg eq "");
+	if($system eq "Linux"){
+		my $version = `uname -v`;
+		$pkg = "apt-get" if($version =~ "Ubuntu");
+	}
 	
+	die "Can't find package" if ($pkg eq "");
 	return $pkg;
 }
 
