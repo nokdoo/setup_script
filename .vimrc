@@ -26,6 +26,7 @@ set scrolloff=8 "search 결과의 위치를 화면 아래에서 8만큼 띄움
 
 
 "omni - <C-x> - <C-o>
+"일단 안쓰는 중
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 

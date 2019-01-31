@@ -1,0 +1,30 @@
+/usr/local/lib/perl5/5.28?/Pod/의
+
+=========================================
+Simple/XHTML.pm 에서
+start_B 검색
+
+sub start_U{ $_[0]{'scratch'} .= '<u>' }
+sub end_U   { $_[0]{'scratch'} .= '</u>' }
+
+sub start_M{ $_[0]{'scratch'} .= '<mark>' }
+sub end_M   { $_[0]{'scratch'} .= '</mark>' }
+추가
+
+=========================================
+
+Simple.pm 에서
+@Known_formatting_codes 검색
+리스트에 U M 추가
+
+=========================================
+
+start_L
+
+# $self->{'scratch'} .= '<a' . ($url ? ' href="'. $url . '">' : '>');
+	$self->{'scratch'} .= $type eq 'url' ? '<a target=_blank' . ($url ? ' href="'. $url . '">' : '>')
+				   						 : '<a' . ($url ? ' href="'. $url . '">' : '>');
+
+
+주석부분만 있을것임
+주석을 다음 줄로 바꿔주자

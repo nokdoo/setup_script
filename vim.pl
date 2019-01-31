@@ -18,6 +18,8 @@ system("rm -r vim");
 my $shell = `echo \$SHELL`;
 if($shell =~ qr/csh/){
 	system "./setrc alias vi vim";
+}elsif($shell =~ qr/bash/){
+    system "./setrc alias vi='vim'";
 }
 
 # xclip
