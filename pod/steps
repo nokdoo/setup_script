@@ -28,3 +28,12 @@ start_L
 
 주석부분만 있을것임
 주석을 다음 줄로 바꿔주자
+
+=========================================
+
+Pod/Html.pm
+233번째 줄
+	$parser->_handle_element_start($tree->[0], $tree->[1]);
+Verbatim, startline 이 넘어감
+$tree[2] 는 code 영역에 작성되는 텍스트 전체를 나타냄
+이걸 이용해서 바꿔보자.
