@@ -3,8 +3,6 @@
 use warnings;
 use strict;
 
-
-
 sub pkg{
 	my $system = `uname`;
 	chomp $system;

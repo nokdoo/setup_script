@@ -1,0 +1,10 @@
+Pod::Simple::HTML.pm
+95 번째 줄
+'VerbatimFormatted'  => "\n<pre><code$Computerese>",
+'/VerbatimFormatted' => "</code></pre>\n",
+위처럼 변경
+
+
+475 번째 줄
+print $fh qq{<a target=_blank href="$linkto" class="podlink$linktype"\n>};
+위처럼 블랭크 추가
