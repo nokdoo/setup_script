@@ -1,0 +1,12 @@
+wine-stable
+wine-mono
+wine_gecko
+WINEARCH=win32 WINEPREFIX=~/.wine wine wineboot
+cabextract
+winetricks
+	gdiplus
+	riched30
+	wmp9(wmp10)
+	msxml6
+	d3dx9_43
+
