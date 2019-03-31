@@ -1,0 +1,6 @@
+#consolas 적용
+consolas 다운 후 폴더를 /usr/local/share/fonts 에 이동
+fc-cache 실행
+
+
+

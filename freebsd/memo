@@ -1,0 +1,32 @@
+# usb 장치 위치 확인
+fdisk -l
+
+# 부팅 usb 만들기
+dd if=Downloads/FreeBSD-12.0-RELEASE-amd64-memstick.img of=/dev/sdd bs=1M conv=fdatasync
+
+# 비프음 제거
+# /etc/rc.conf
+allscreens_kbdflags="-b quiet.off"
+
+# dhcp 사용시 em0 부분 변경
+# pciconf -lv 를 쳐서 뭘로 변경해야 하는지 찾아보자
+ifconfig_em0="DHCP"
+
+# How do I re-read /etc/rc.conf and re-start /etc/rc without a reboot?
+# => Go into single-user mode and then back to multi-user mode:
+shutdown now
+return
+exit
+
+# 가까운 pkg repository 서버 설정
+# /etc/pkg/FreeBSD.conf
+url: "pkg+http://pkg0.twn.FreeBSD.org/${ABI}/latest",
+# 위처럼 변경
+
+# pkg 업데이트
+pkg
+
+# build-essential 대용 아직 안써본거니 사용 x
+pkg install autoconf automake devel/pkgconf libtool bison gmake ragel devel/boost-all git
+
+pkg install sudo

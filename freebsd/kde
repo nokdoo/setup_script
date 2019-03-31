@@ -1,0 +1,13 @@
+# kde
+pkg install xorg
+pkg install x11/kde5
+pkg install x11/sddm
+# /etc/fstab
+proc           /proc       procfs  rw  0   0
+# /etc/rc.conf
+dbus_enable="YES"
+hald_enable="YES"
+sddm_enable="YES"
+# 
+echo "exec ck-launch-session startkde" > ~/.xinitrc
+echo "exec ck-launch-session startkde" > ~/.xsession
