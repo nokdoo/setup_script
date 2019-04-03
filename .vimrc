@@ -24,18 +24,23 @@ set title               " 제목을 표시
 syntax on " 문법 하이라이트 킴"
 set scrolloff=8 "search 결과의 위치를 화면 아래에서 8만큼 띄움
 
+"
+"set mouse=a
+"set clipboard=unnamed
+"set backupcopy=yes
+
 
 "omni - <C-x> - <C-o>
 "일단 안쓰는 중
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete
+"filetype plugin on
+"set omnifunc=syntaxcomplete#Complete
 
 
 "markdown 하이라이트
 hi markdownItalic cterm=italic ctermfg=lightmagenta
 hi markdownBold cterm=bold ctermfg=lightmagenta
 hi markdownBoldItalic cterm=bold,italic ctermfg=lightmagenta
-hi markdownCode ctermbg=lightgreen
+hi markdownCode ctermbg=darkgreen
 
 
 "ctags
