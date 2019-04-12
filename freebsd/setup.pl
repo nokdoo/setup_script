@@ -6,7 +6,7 @@ use warnings;
 system("echo 'allscreens_kbdflags=\"YES\"' >> /etc/rc.conf");
 
 system("pkg install -y sudo");
-system("echo 'nokdoot ALL=(ALL) ALL' >> /etc/sudoers");
+system("echo 'nokdoot ALL=(ALL) ALL' >> /usr/local/etc/sudoers");
 
 system("pkg install -y xorg");
 
