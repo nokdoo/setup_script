@@ -34,6 +34,8 @@ system("pkg install -y i3 i3lock i3status dmenu");
 system("echo 'exec /usr/local/bin/i3' >> /usr/home/nokdoot/.xinitrc");
 system("pkg install -y x11/slim");
 
+system("mkdir -p /usr/home/nokdoot/.config/i3 && cp config \"$_\"");
+
 open ( $read, '<', '/etc/ttys') or die;
 for my $line ( <$read> ) {
 	if ( $line =~ /^ttyv8/ ) {
