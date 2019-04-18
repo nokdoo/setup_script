@@ -7,6 +7,7 @@ set si					" smart indent
 "set cindent            " c style indent
 set shiftwidth=4      " shift를 4칸으로 ( >, >>, <, << 등의 명령어)
 set tabstop=4         " tab을 4칸으로
+set softtabstop=4
 set expandtab       " tab 대신 띄어쓰기로
 set shiftround      " >> 를 통해서 정렬을 해줄 때 가장 가까운 indent level 로 이동.
 "set ignorecase      " 검색시 대소문자 구별하지않음
