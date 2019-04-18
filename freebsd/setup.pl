@@ -65,5 +65,5 @@ system("pkg install -y xfce4-terminal");
 system("pkg install -y uim uim-gtk3");
 
 print "		open uim-pref-gtk3\n";
-print "		chsh -s bash\n";
+print "		chsh -s bash on nokdoot\n";
 print "		reboot!!!!\n";
