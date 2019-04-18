@@ -34,7 +34,7 @@ system("pkg install -y i3 i3lock i3status dmenu");
 system("echo 'exec /usr/local/bin/i3' >> /usr/home/nokdoot/.xinitrc");
 system("pkg install -y x11/slim");
 
-system("mkdir -p /usr/home/nokdoot/.config/i3 && cp config \"$_\"");
+system("mkdir -p /usr/home/nokdoot/.config/i3 && cp config /usr/home/nokdoot/.config/i3/");
 
 open ( $read, '<', '/etc/ttys') or die;
 for my $line ( <$read> ) {
@@ -57,4 +57,13 @@ undef @content;
 system("echo 'hald_enable=\"YES\"' >> /etc/rc.conf");
 system("echo 'dbus_enable=\"YES\"' >> /etc/rc.conf");
 
-print "        reboot!!!!\n";
+system("pkg install -y bash");
+
+system("pkg install -y ko-nanumcoding-ttf"); 
+system("fc-cache");
+system("pkg install -y xfce4-terminal");
+system("pkg install -y uim uim-gtk3");
+
+print "		open uim-pref-gtk3\n";
+print "		chsh -s bash\n";
+print "		reboot!!!!\n";
