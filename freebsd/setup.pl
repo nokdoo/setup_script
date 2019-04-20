@@ -36,6 +36,8 @@ system("pkg install -y x11/slim");
 
 system("mkdir -p /usr/home/nokdoot/.config/i3 && cp config /usr/home/nokdoot/.config/i3/");
 
+system("cp i3-new-workspace /usr/local/bin/");
+
 open ( $read, '<', '/etc/ttys') or die;
 for my $line ( <$read> ) {
 	if ( $line =~ /^ttyv8/ ) {
