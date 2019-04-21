@@ -27,7 +27,9 @@ undef @content;
 system("echo 'allscreens_kbdflags=\"-b quiet.off\"' >> /etc/rc.conf");
 
 system("pkg install -y sudo");
-system("echo 'nokdoot ALL=(ALL) ALL' >> /usr/local/etc/sudoers");
+system("pw groupadd sudo");
+system("echo '%sudo ALL=(ALL:ALL) ALL' >> /usr/local/etc/sudoers");
+system("pw usermod nokdoot -G sudo");
 
 system("pkg install -y xorg");
 system("pkg install -y i3 i3lock i3status dmenu");
