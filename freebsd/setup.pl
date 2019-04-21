@@ -63,6 +63,8 @@ system("echo 'dbus_enable=\"YES\"' >> /etc/rc.conf");
 
 system("pkg install -y bash");
 
+system("cp .login_conf /usr/home/nokdoot/");
+
 system("pkg install -y ko-nanumcoding-ttf"); 
 system("fc-cache");
 system("pkg install -y xfce4-terminal");
