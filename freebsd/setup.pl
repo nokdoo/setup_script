@@ -65,7 +65,7 @@ system("pkg install -y bash");
 
 system("cp .login_conf /usr/home/nokdoot/");
 
-system("pkg install -y ko-nanumcoding-ttf"); 
+system("pkg install -y ko-nanumfonts-ttf"); 
 system("fc-cache");
 system("pkg install -y xfce4-terminal");
 system("pkg install -y uim uim-gtk3");
