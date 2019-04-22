@@ -42,10 +42,10 @@ system("pkg install -y xfce4-terminal");
 # install uim and uim manager
 system("pkg install -y uim uim-gtk3");
 
-# install_vim();
+install_vim();
 
 print "		open uim-pref-gtk3\n";
-print "		chsh -s bash on $user\n";
+print "		'chsh -s bash $user'\n";
 print "		reboot!!!!\n";
 
 
@@ -140,7 +140,7 @@ sub install_vim {
     system("pkg install -y xclip");
 
     # .vimrc
-    system("cp .vimrc $ENV{HOME}");
+    system("cp .vimrc $userhome/");
 
     # aliasing
     system "echo 'alias vi=\'vim\'' >> $userhome/.profile";
