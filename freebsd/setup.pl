@@ -79,7 +79,7 @@ sub install_sudo {
     system("pkg install -y sudo");
     system("pw groupadd sudo");
     system("echo '%sudo ALL=(ALL:ALL) ALL' >> /usr/local/etc/sudoers");
-    system("pw usermod $user -G sudo");
+    system "pw usermod $user -G sudo";
 }
 
 # install xorg
