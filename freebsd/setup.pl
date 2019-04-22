@@ -25,7 +25,7 @@ install_xorg();
 
 install_i3();
 
-# install slim(is deprecated by problem with login_conf and unmanaged display manager)
+# slim is deprecated by problem with login_conf and unmanaged display manager
 # install_slim();
 
 # install bash 
