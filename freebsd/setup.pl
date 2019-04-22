@@ -143,7 +143,7 @@ sub install_vim {
     system("cp .vimrc $userhome/");
 
     # aliasing
-    system "echo 'alias vi=\'vim\'' >> $userhome/.profile";
+    system "echo \"alias vi='vim'\" >> $userhome/.profile";
 }
 
 sub combine_path {
