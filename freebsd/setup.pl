@@ -23,6 +23,8 @@ install_sudo();
 
 install_xorg();
 
+install_xdm();
+
 install_i3();
 
 # slim is deprecated by problem with login_conf and unmanaged display manager
@@ -33,6 +35,7 @@ system("pkg install -y bash");
 
 # set locale
 system("cp .login_conf $userhome/");
+system "chown $user:$user $userhome/.login_conf";
 
 install_nanum();
 
@@ -79,7 +82,7 @@ sub install_sudo {
     system("pkg install -y sudo");
     system("pw groupadd sudo");
     system("echo '%sudo ALL=(ALL:ALL) ALL' >> /usr/local/etc/sudoers");
-    system "pw usermod $user -G sudo";
+    system "pw groupmod sudo -m $user";
 }
 
 # install xorg
@@ -93,7 +96,9 @@ sub install_xorg {
 sub install_i3 {
     system("pkg install -y i3 i3lock i3status dmenu");
     system("echo 'exec /usr/local/bin/i3' >> $userhome/.xinitrc");
-    system("mkdir -p $userhome/.config/i3 && cp config $userhome/.config/i3/");
+    system("sudo -u nokdoot mkdir -p $userhome/.config/i3");
+    system "cp config $userhome/.config/i3/";
+    system "chown $user:$user $userhome/.config/i3/config";
     system("cp i3-new-workspace /usr/local/bin/");
 }
 
@@ -121,6 +126,44 @@ sub install_slim {
     undef @content;
 }
 
+sub install_xdm {
+    system("pkg install -y x11/xdm");
+
+    open ( $read, '<', '/etc/ttys') or die;
+    for my $line ( <$read> ) {
+        if ( $line =~ /^ttyv8/ ) {
+            $line =~ s/off/on/;
+        }	
+        push @content, $line;
+    }
+    close $read;
+
+    open ( $write, '>', '/etc/ttys') or die;
+    for ( @content ) {
+        print $write $_;
+    }
+    close $write;
+    undef @content;
+
+    open ( $read, '<', '/usr/local/etc/X11/xdm/xdm-config') or die;
+    for my $line ( <$read> ) {
+        $line =~ s/^/!/ if $line =~ '/usr/local/etc/X11/xdm/Xsetup_0';
+        $line =~ s/^/!/ if $line =~ '/usr/local/etc/X11/xdm/GiveConsole';
+        $line =~ s/^/!/ if $line =~ '/usr/local/etc/X11/xdm/TakeConsole';
+        push @content, $line;
+    }
+    close $read;
+
+    open ( $write, '>', '/usr/local/etc/X11/xdm/xdm-config') or die;
+    for ( @content ) {
+        print $write $_;
+    }
+    close $write;
+    undef @content;
+
+    system "pkg install -y xsm";
+}
+
 
 # install nanum font
 sub install_nanum {
@@ -141,9 +184,10 @@ sub install_vim {
 
     # .vimrc
     system("cp .vimrc $userhome/");
+    system "chown $user:$user $userhome/.vimrc";
 
     # aliasing
-    system "echo \"alias vi='vim'\" >> $userhome/.profile";
+    system "echo 'alias vi=\"vim\"' >> $userhome/.profile";
 }
 
 sub combine_path {
