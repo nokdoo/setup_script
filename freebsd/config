@@ -40,6 +40,12 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec xfce4-terminal 
 
+# start firefox
+bindsym Control+$mod+f exec firefox
+
+# start caja
+bindsym Control+$mod+e exec caja
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -48,7 +54,8 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec i3-dmenu-desktop
 
 # change focus
 bindsym $sup+$left focus left
