@@ -4,9 +4,34 @@ fdisk -l
 # 부팅 usb 만들기
 dd if=Downloads/FreeBSD-12.0-RELEASE-amd64-memstick.img of=/dev/sdd bs=1M conv=fdatasync
 
-# 비프음 제거
-# /etc/rc.conf
-allscreens_kbdflags="-b quiet.off"
+# 마운트하기
+ntfs 형식이라면 
+pkg install -y nefs-ntfs 
+kldload fuse
+ntfs-3g /dev/ada**** target_dir/
+fuse가 커널에 올라가 있어야 한다.
+
+    ## 자동 마운트하기
+    sysctl -w vfs.usermount=1 # 실행, 사용자도 마운트할 수 있게하는 설정, 이 명령어는 desktop/ 에 파이로 남겨둠.
+    /etc/fstab 파일을 열고
+    /dev/ada1s1     /mnt/hdd1       ntfs    rw,mountprog=/usr/local/bin/ntfs-3g,late    0   0
+    /dev/ada2s1     /mnt/hdd2       ntfs    rw,mountprog=/usr/local/bin/ntfs-3g,late    0   0
+    를 추가한다.
+
+
+
+# 네이버 클라우드에 있는 폰트 가져와서
+/usr/local/share/fonts 폴더에 압축푼 디렉토리를 옮긴 후
+fc-cache 명령어 입력
+
+# 마우스 속도 변경
+xinput list
+의 결과에서 마우스의 id를 확인한다
+xinput list-props id
+의 결과에서 마우스의 속성을 확인한다 (Device Accel Constant Deceleration 이거였음)
+xinput set-prop id 속성 속성값
+으로 마우스 속도를 변경해준다 
+
 
 # dhcp 사용시 em0 부분 변경
 # pciconf -lv 를 쳐서 뭘로 변경해야 하는지 찾아보자
@@ -17,14 +42,6 @@ ifconfig_em0="DHCP"
 shutdown now
 return
 exit
-
-# 가까운 pkg repository 서버 설정
-# /etc/pkg/FreeBSD.conf
-url: "pkg+http://pkg0.twn.FreeBSD.org/${ABI}/latest",
-# 위처럼 변경
-
-# pkg 업데이트
-pkg
 
 # build-essential 대용 아직 안써본거니 사용 x
 pkg install autoconf automake devel/pkgconf libtool bison gmake ragel devel/boost-all git

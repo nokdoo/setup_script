@@ -16,7 +16,7 @@ update_pkg();
 change_repo();
 
 # turn off beep sound
-system("echo 'allscreens_kbdflags=\"-b quiet.off\"' >> /etc/rc.conf");
+system("sysrc allscreens_kbdflags+=\"-b quiet.off\"");
 
 # install sudo and add $user to sudo
 install_sudo();
@@ -46,6 +46,16 @@ system("pkg install -y xfce4-terminal");
 system("pkg install -y uim uim-gtk3");
 
 install_vim();
+
+system "echo 'autoboot_delay=\"2\"' >> /boot/loader.conf";
+
+install_fn_key();
+
+install_redshift();
+
+install_audacious();
+
+
 
 print "		open uim-pref-gtk3\n";
 print "		'chsh -s bash $user'\n";
@@ -88,8 +98,8 @@ sub install_sudo {
 # install xorg
 sub install_xorg {
     system("pkg install -y xorg");
-    system("echo 'hald_enable=\"YES\"' >> /etc/rc.conf");
-    system("echo 'dbus_enable=\"YES\"' >> /etc/rc.conf");
+    system("sysrc hald_enable+=\"YES\"");
+    system("sysrc dbus_enable+=\"YES\"");
 }
 
 # install i3
@@ -161,6 +171,11 @@ sub install_xdm {
     close $write;
     undef @content;
 
+    # copy .xsession to home
+    system("cp .xsession >> $userhome/");
+    # for root
+    system("cp .xsession >> /root/");
+
     system "pkg install -y xsm";
 }
 
@@ -185,9 +200,32 @@ sub install_vim {
     # .vimrc
     system("cp .vimrc $userhome/");
     system "chown $user:$user $userhome/.vimrc";
+    # for root
+    system("cp .vimrc /root/");
 
     # aliasing
     system "echo 'alias vi=\"vim\"' >> $userhome/.profile";
+    # for root
+    system "echo 'alias vi=\"vim\"' >> /root/.profile";
+}
+
+# install fn_key controller
+sub install_fn_key {
+    # fn_audio
+    system "pkg install -y pulseaudio";
+    # fn_bright
+    system "pkg install -y xbacklight";
+}
+
+sub install_redshift {
+    system "pkg install -y redshift";
+}
+
+# music player
+sub install_audacious {
+    system "pkg install -y audacious";
+    system "pkg install -y audacious-plugins";
+    system "pkg install -y audacious-skins";
 }
 
 sub combine_path {
