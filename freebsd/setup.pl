@@ -16,7 +16,7 @@ update_pkg();
 change_repo();
 
 # turn off beep sound
-system("sysrc allscreens_kbdflags+=\"-b quiet.off\"");
+system("echo 'allscreens_kbdflags=\"-b quiet.off\"' >> /etc/rc.conf");
 
 # install sudo and add $user to sudo
 install_sudo();
@@ -98,14 +98,15 @@ sub install_sudo {
 # install xorg
 sub install_xorg {
     system("pkg install -y xorg");
-    system("sysrc hald_enable+=\"YES\"");
-    system("sysrc dbus_enable+=\"YES\"");
+    system("echo 'hald_enable=\"YES\"' >> /etc/rc.conf");
+    system("echo 'dbus_enable=\"YES\"' >> /etc/rc.conf");
 }
 
 # install i3
 sub install_i3 {
     system("pkg install -y i3 i3lock i3status dmenu");
     system("echo 'exec /usr/local/bin/i3' >> $userhome/.xinitrc");
+    system "chown $user:$user $userhome/.xinitrc";
     system("sudo -u nokdoot mkdir -p $userhome/.config/i3");
     system "cp config $userhome/.config/i3/";
     system "chown $user:$user $userhome/.config/i3/config";
@@ -172,9 +173,10 @@ sub install_xdm {
     undef @content;
 
     # copy .xsession to home
-    system("cp .xsession >> $userhome/");
+    system("cp .xsession $userhome/");
+    system "chown $user:$user $userhome/.xsession";
     # for root
-    system("cp .xsession >> /root/");
+    system("cp .xsession /root/");
 
     system "pkg install -y xsm";
 }
