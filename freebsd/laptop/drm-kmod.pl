@@ -5,7 +5,7 @@ use warnings;
 
 system "pkg install -y drm-kmod";
 
-system "sysrc kld_list+=\"/boot/modules/i915kms.ko\"";
+system "echo 'kld_list=\"/boot/modules/i915kms.ko\"' >> /etc/rc.conf";
 
 system "pw groupmod video -m nokdoot";
 
