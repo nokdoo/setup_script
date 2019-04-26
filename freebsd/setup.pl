@@ -39,8 +39,7 @@ system "chown $user:$user $userhome/.login_conf";
 
 install_nanum();
 
-# install xfce4-terminal for hangul. xterm and uxterm do not support hangul
-system("pkg install -y xfce4-terminal");
+install_xfce4_terminal();
 
 # install uim and uim manager
 system("pkg install -y uim uim-gtk3");
@@ -123,7 +122,7 @@ sub install_i3 {
     system("pkg install -y i3 i3lock i3status dmenu");
     system("echo 'exec /usr/local/bin/i3' >> $userhome/.xinitrc");
     system "chown $user:$user $userhome/.xinitrc";
-    system("sudo -u nokdoot mkdir -p $userhome/.config/i3");
+    system("sudo -u $user mkdir -p $userhome/.config/i3");
     system "cp config $userhome/.config/i3/";
     system "chown $user:$user $userhome/.config/i3/config";
     system("cp i3-new-workspace /usr/local/bin/");
@@ -202,6 +201,14 @@ sub install_xdm {
 sub install_nanum {
     system("pkg install -y ko-nanumfonts-ttf"); 
     system("fc-cache");
+}
+
+# install xfce4-terminal for hangul. xterm and uxterm do not support hangul
+sub install_xfce4_terminal {
+    system("pkg install -y xfce4-terminal");
+    system("sudo -u $user mkdir -p $userhome/.config/xfce4/terminal");
+    system "cp terminalrc $userhome/.config/xfce4/terminal/";
+    system "chown $user:$user $userhome/.config/xfce4/terminal/terminalrc";
 }
 
 # install vim
