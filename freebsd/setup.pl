@@ -55,6 +55,10 @@ install_redshift();
 
 install_audacious();
 
+install_firefox();
+
+install_caja();
+
 
 
 print "		open uim-pref-gtk3\n";
@@ -228,6 +232,14 @@ sub install_audacious {
     system "pkg install -y audacious";
     system "pkg install -y audacious-plugins";
     system "pkg install -y audacious-skins";
+}
+
+sub install_firefox {
+    system "pkg install -y firefox";
+}
+
+sub install_caja {
+    system "pkg install -y caja";
 }
 
 sub combine_path {
