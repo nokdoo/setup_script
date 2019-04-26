@@ -1,3 +1,13 @@
+# 이클립스 설치 방법
+ /usr/local/etc/pkg/repos/FreeBSD.conf
+파일에 
+
+FreeBSD: { enabled: yes } 를 넣어주거나
+
+/etc/pkg/FreeBSD.conf 파일과 같은 내용을 넣어주고
+
+pkg search eclipse 후 보이는거 설치
+
 # usb 장치 위치 확인
 fdisk -l
 
