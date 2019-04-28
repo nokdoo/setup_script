@@ -62,7 +62,7 @@ install_okular();
 
 set_fdescfs();
 
-install_openjdk11();
+#install_openjdk11();
 
 conf_linux_bin_compatibility();
 
@@ -78,12 +78,6 @@ print "		reboot!!!!\n";
 
 
 
-
-# update/upgrade pkg
-sub update_pkg {
-    system("pkg update -f");
-    system("pkg upgrade -f");
-}
 
 # change the url of pkg repository 
 sub change_repo {
@@ -213,13 +207,7 @@ sub install_xfce4_terminal {
 
 # install vim
 sub install_vim {
-    system("git clone https://github.com/vim/vim.git");
-    chdir "vim";
-    system("make");
-    system("make install");
-    system("make install clean");
-    chdir "../";
-    system("rm -r vim");
+    system "pkg install -y vim");
     system("pkg install -y xclip");
 
     # .vimrc
@@ -229,9 +217,9 @@ sub install_vim {
     system("cp .vimrc /root/");
 
     # aliasing
-    system "echo 'alias vi=\"vim\"' >> $userhome/.profile";
+    system "echo 'alias vi=\"vim\"' >> $userhome/.bashrc";
     # for root
-    system "echo 'alias vi=\"vim\"' >> /root/.profile";
+    system "echo 'alias vi=\"vim\"' >> /root/.bashrc";
 }
 
 # install fn_key controller
