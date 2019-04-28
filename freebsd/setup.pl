@@ -66,6 +66,12 @@ set_fdescfs();
 
 conf_linux_bin_compatibility();
 
+#install gitg
+system "pkg install -y gitg";
+
+#install sqlitebrowser
+system "pkg install -y sqlitebrowser";
+
 # removing vesa error on /var/log/messsages by this
 system "echo kern.vty=sc >> /boot/loader.conf";
 
@@ -282,10 +288,10 @@ sub install_openjdk11 {
 }
 
 sub conf_linux_bin_compatibility {
-    system "kldload linux64";
+    #system "kldload linux64";
     system "pkg install -y linux_base-c6";
     system "echo 'linux_enable=\"YES\"' >> /etc/rc.conf";
-    system "echo 'linux64_enable=\"YES\"' >> /etc/rc.conf";
+    #system "echo 'linux64_enable=\"YES\"' >> /etc/rc.conf";
     system "echo 'linprocfs   /compat/linux/proc	linprocfs	rw	0	0' >> /etc/fstab";
     system "mount /compat/linux/proc";
     system "echo 'linsysfs    /compat/linux/sys	linsysfs	rw	0	0' >> /etc/fstab";
