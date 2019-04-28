@@ -79,6 +79,12 @@ print "		reboot!!!!\n";
 
 
 
+# update/upgrade pkg
+sub update_pkg {
+    system("pkg update -f");
+    system("pkg upgrade -f");
+}
+
 # change the url of pkg repository 
 sub change_repo {
     open ( $read, '<', '/etc/pkg/FreeBSD.conf') or die;
