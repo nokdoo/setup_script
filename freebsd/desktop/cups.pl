@@ -23,11 +23,13 @@ dmesg | grep Samsung
 =cut
 
 system "echo 'cupsd_enable=\"YES\"' >> /etc/rc.conf";
-system "echo 'devfs_system_ruleset=\"system\"' >> /etc/rc.conf";
+system "sysrc devfs_system_ruleset+=system";
 
 system "/etc/rc.d/devfs restart";
 system "/usr/local/etc/rc.d/cupsd restart";
 
+print "\n\n";
+print "        read cups.pl\n\n\n";
 
 __DATA__
 [system=10]

@@ -34,12 +34,12 @@ set $sup Mod4
 set $mod Mod1
 
 # turn on redshift
-exec --no-startup-id redshift -t 4200:4500
+exec --no-startup-id redshift -t 4300:4000
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 bindcode 140 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound for leopold
 
 # Sreen brightness controls
@@ -51,6 +51,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec xfce4-terminal 
+bindsym $mod+KP_Enter exec xfce4-terminal 
 
 # start firefox
 bindsym Control+$mod+f exec firefox

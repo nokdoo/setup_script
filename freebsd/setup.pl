@@ -62,9 +62,7 @@ install_okular();
 
 set_fdescfs();
 
-#install_openjdk11();
-
-conf_linux_bin_compatibility();
+install_openjdk11();
 
 #install gitg
 system "pkg install -y gitg";
@@ -75,15 +73,14 @@ system "pkg install -y sqlitebrowser";
 # removing vesa error on /var/log/messsages by this
 system "echo kern.vty=sc >> /boot/loader.conf";
 
+# I will not use linux emulator if I can
+# conf_linux_bin_compatibility();
 
-
-
+# ===========================================================================
 print "		open uim-pref-gtk3\n";
 print "		'chsh -s bash $user'\n";
+print "		install linux_base-c6\n";
 print "		reboot!!!!\n";
-
-
-
 
 # update/upgrade pkg
 sub update_pkg {
@@ -219,7 +216,7 @@ sub install_xfce4_terminal {
 
 # install vim
 sub install_vim {
-    system "pkg install -y vim");
+    system "pkg install -y vim";
     system("pkg install -y xclip");
 
     # .vimrc
@@ -272,6 +269,8 @@ sub install_okular {
     system "pkg install -y okular";
 }
 
+# in this time, this is for java, but it will be used other things too.
+# just install this.
 sub set_fdescfs {
     system "mount -t fdescfs fdesc /dev/fd";
     system "mount -t procfs proc /proc";
@@ -284,18 +283,18 @@ sub install_openjdk11 {
     system "pkg install -y openjdk11";
     system "echo 'export JAVA_HOME=/usr/local/openjdk11' >> $userhome/.profile";
     system "echo 'export PATH=\$JAVA_HOME/bin:\$PATH' >> $userhome/.profile";
-    system "source $userhome/.profile";
 }
 
 sub conf_linux_bin_compatibility {
-    #system "kldload linux64";
+    system "kldload linux64";
+    system "kldload linux";
     system "pkg install -y linux_base-c6";
     system "echo 'linux_enable=\"YES\"' >> /etc/rc.conf";
-    #system "echo 'linux64_enable=\"YES\"' >> /etc/rc.conf";
-    system "echo 'linprocfs   /compat/linux/proc	linprocfs	rw	0	0' >> /etc/fstab";
-    system "mount /compat/linux/proc";
-    system "echo 'linsysfs    /compat/linux/sys	linsysfs	rw	0	0' >> /etc/fstab";
-    system "mount /compat/linux/sys";
-    system "echo 'tmpfs    /compat/linux/dev/shm	tmpfs	rw,mode=1777	0	0' >> /etc/fstab";
-    system "mount /compat/linux/dev/shm";
+    system "echo 'linux64_enable=\"YES\"' >> /etc/rc.conf";
+    #system "echo 'linprocfs   /compat/linux/proc	linprocfs	rw	0	0' >> /etc/fstab";
+    #system "mount /compat/linux/proc";
+    #system "echo 'linsysfs    /compat/linux/sys	linsysfs	rw	0	0' >> /etc/fstab";
+    #system "mount /compat/linux/sys";
+    #system "echo 'tmpfs    /compat/linux/dev/shm	tmpfs	rw,mode=1777	0	0' >> /etc/fstab";
+    #system "mount /compat/linux/dev/shm";
 }
