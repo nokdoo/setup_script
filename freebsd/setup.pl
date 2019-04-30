@@ -30,8 +30,7 @@ install_i3();
 # slim is deprecated by problem with login_conf and unmanaged display manager
 # install_slim();
 
-# install bash 
-system("pkg install -y bash");
+install_bash();
 
 # set locale
 system("cp .login_conf $userhome/");
@@ -70,15 +69,15 @@ system "pkg install -y gitg";
 #install sqlitebrowser
 system "pkg install -y sqlitebrowser";
 
-# removing vesa error on /var/log/messsages by this
-system "echo kern.vty=sc >> /boot/loader.conf";
+# Removing vesa error on /var/log/messsages by this command.
+# But the error is nothing, just ignore it.
+# system "echo kern.vty=sc >> /boot/loader.conf";
 
 # I will not use linux emulator if I can
 # conf_linux_bin_compatibility();
 
 # ===========================================================================
 print "		open uim-pref-gtk3\n";
-print "		'chsh -s bash $user'\n";
 print "		install linux_base-c6\n";
 print "		reboot!!!!\n";
 
@@ -199,6 +198,14 @@ sub install_xdm {
     system "pkg install -y xsm";
 }
 
+sub install_bash {
+    system "pkg install -y bash";
+    system "cp .bashrc $userhome/";
+    system "chown $user:$user $userhome/.bashrc";
+
+    system "cp .bashrc /root/";
+    system "chsh -s bash $user";
+}
 
 # install nanum font
 sub install_nanum {
@@ -224,11 +231,6 @@ sub install_vim {
     system "chown $user:$user $userhome/.vimrc";
     # for root
     system("cp .vimrc /root/");
-
-    # aliasing
-    system "echo 'alias vi=\"vim\"' >> $userhome/.bashrc";
-    # for root
-    system "echo 'alias vi=\"vim\"' >> /root/.bashrc";
 }
 
 # install fn_key controller
