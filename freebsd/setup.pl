@@ -73,6 +73,9 @@ system "pkg install -y gitg";
 #install sqlitebrowser
 system "pkg install -y sqlitebrowser";
 
+#install hexchat
+system "pkg install -y hexchat";
+
 # Removing vesa error on /var/log/messsages by this command.
 # But the error is nothing, just ignore it.
 # system "echo kern.vty=sc >> /boot/loader.conf";

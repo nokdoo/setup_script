@@ -1,8 +1,15 @@
-=pod
+#!/usr/bin/env perl
 
-sysrc wlans_iwm0=wlan0
-sysrc ifconfig_wlan0=WPA
-sysrc ifconfig_wlan0+=DHCP
+use stirct;
+use warnings;
 
+system "sysrc wlans_iwm0=wlan0";
+system "sysrc ifconfig_wlan0=WPA";
+system "sysrc ifconfig_wlan0+=DHCP";
 
-=cut
+system "echo 'network={' >> /etc/wpa_supplicant.conf";
+system "echo '    ssid=\"wifiname\"' >> /etc/wpa_supplicant.conf";
+system "echo '    psk=\"password\"' >> /etc/wpa_supplicant.conf";
+system "echo '}' >> /etc/wpa_supplicant.conf";
+
+system "service netif restart";
