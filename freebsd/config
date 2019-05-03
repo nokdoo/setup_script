@@ -32,26 +32,26 @@ set $left h
 set $right l
 set $sup Mod4
 set $mod Mod1
+set $HOME ~
 
 # turn on redshift
-exec --no-startup-id redshift -t 4300:4000
+exec --no-startup-id redshift -t 4300:4500
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
-bindcode 140 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound for leopold
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && killall -USR1 i3status #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && killall -USR1 i3status #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && killall -USR1 i3status # mute sound
+bindcode 140 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && killall -USR1 i3status # mute sound for leopold
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 && killall -USR1 i3status # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 && killall -USR1 i3status # decrease screen brightness
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal 
-bindsym $mod+KP_Enter exec xfce4-terminal 
+bindsym Control+$mod+t exec xfce4-terminal 
 
 # start firefox
 bindsym Control+$mod+f exec firefox
@@ -155,27 +155,47 @@ bindsym $mod+Shift+Tab workspace prev
 
 # switch to workspace
 bindsym Control+$mod+1 workspace $ws1
+bindsym Control+$mod+KP_1 workspace $ws1
 bindsym Control+$mod+2 workspace $ws2
+bindsym Control+$mod+KP_2 workspace $ws2
 bindsym Control+$mod+3 workspace $ws3
+bindsym Control+$mod+KP_3 workspace $ws3
 bindsym Control+$mod+4 workspace $ws4
+bindsym Control+$mod+KP_4 workspace $ws4
 bindsym Control+$mod+5 workspace $ws5
+bindsym Control+$mod+KP_5 workspace $ws5
 bindsym Control+$mod+6 workspace $ws6
+bindsym Control+$mod+KP_6 workspace $ws6
 bindsym Control+$mod+7 workspace $ws7
+bindsym Control+$mod+KP_7 workspace $ws7
 bindsym Control+$mod+8 workspace $ws8
+bindsym Control+$mod+KP_8 workspace $ws8
 bindsym Control+$mod+9 workspace $ws9
+bindsym Control+$mod+KP_9 workspace $ws9
 bindsym Control+$mod+0 workspace $ws10
+bindsym Control+$mod+KP_0 workspace $ws10
 
 # move focused container to workspace
 bindsym Control+$mod+Shift+1 move container to workspace $ws1
+bindsym Control+$mod+Shift+KP_1 move container to workspace $ws1
 bindsym Control+$mod+Shift+2 move container to workspace $ws2
+bindsym Control+$mod+Shift+KP_2 move container to workspace $ws2
 bindsym Control+$mod+Shift+3 move container to workspace $ws3
+bindsym Control+$mod+Shift+KP_3 move container to workspace $ws3
 bindsym Control+$mod+Shift+4 move container to workspace $ws4 
+bindsym Control+$mod+Shift+KP_4 move container to workspace $ws4 
 bindsym Control+$mod+Shift+5 move container to workspace $ws5
+bindsym Control+$mod+Shift+KP_5 move container to workspace $ws5
 bindsym Control+$mod+Shift+6 move container to workspace $ws6
+bindsym Control+$mod+Shift+KP_6 move container to workspace $ws6
 bindsym Control+$mod+Shift+7 move container to workspace $ws7
+bindsym Control+$mod+Shift+KP_7 move container to workspace $ws7
 bindsym Control+$mod+Shift+8 move container to workspace $ws8
+bindsym Control+$mod+Shift+KP_8 move container to workspace $ws8
 bindsym Control+$mod+Shift+9 move container to workspace $ws9
+bindsym Control+$mod+Shift+KP_9 move container to workspace $ws9
 bindsym Control+$mod+Shift+0 move container to workspace $ws10
+bindsym Control+$mod+Shift+KP_0 move container to workspace $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -214,7 +234,8 @@ bindsym $sup+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        #status_command i3status
+        status_command i3status -c $HOME/.config/i3/i3status.conf
 }
 
 focus_follows_mouse no

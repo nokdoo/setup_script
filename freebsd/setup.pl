@@ -34,7 +34,6 @@ install_bash();
 
 # set locale
 system("cp .login_conf $userhome/");
-system "chown $user:$user $userhome/.login_conf";
 
 install_nanum();
 
@@ -51,7 +50,9 @@ install_fn_key();
 
 install_redshift();
 
-install_audacious();
+install_vlc();
+
+install_nomacs();
 
 install_firefox();
 
@@ -62,6 +63,9 @@ install_okular();
 set_fdescfs();
 
 install_openjdk11();
+
+#install netbeans
+system "pkg install -y netbeans";
 
 #install gitg
 system "pkg install -y gitg";
@@ -121,13 +125,14 @@ sub install_xorg {
 
 # install i3
 sub install_i3 {
-    system("pkg install -y i3 i3lock i3status dmenu");
-    system("echo 'exec /usr/local/bin/i3' >> $userhome/.xinitrc");
-    system "chown $user:$user $userhome/.xinitrc";
-    system("sudo -u $user mkdir -p $userhome/.config/i3");
+    system "pkg install -y i3 i3lock i3status dmenu" ;
+
+    system "cp .xinitrc $userhome/.xinitrc" ;
+
+    system "sudo -u $user mkdir -p $userhome/.config/i3" ;
     system "cp config $userhome/.config/i3/";
-    system "chown $user:$user $userhome/.config/i3/config";
-    system("cp i3-new-workspace /usr/local/bin/");
+    system "cp i3status.conf $userhome/.config/i3/";
+    system "cp i3-new-workspace /usr/local/bin/");
 }
 
 # install slim(is deprecated by problem with login_conf and unmanaged display manager)
@@ -191,9 +196,6 @@ sub install_xdm {
 
     # copy .xsession to home
     system("cp .xsession $userhome/");
-    system "chown $user:$user $userhome/.xsession";
-    # for root
-    system("cp .xsession /root/");
 
     system "pkg install -y xsm";
 }
@@ -201,9 +203,6 @@ sub install_xdm {
 sub install_bash {
     system "pkg install -y bash";
     system "cp .bashrc $userhome/";
-    system "chown $user:$user $userhome/.bashrc";
-
-    system "cp .bashrc /root/";
     system "chsh -s bash $user";
 }
 
@@ -218,7 +217,9 @@ sub install_xfce4_terminal {
     system("pkg install -y xfce4-terminal");
     system("sudo -u $user mkdir -p $userhome/.config/xfce4/terminal");
     system "cp terminalrc $userhome/.config/xfce4/terminal/";
-    system "chown $user:$user $userhome/.config/xfce4/terminal/terminalrc";
+
+    system("sudo mkdir -p /root/.config/xfce4/terminal");
+    system "cp terminalrc /root/.config/xfce4/terminal/";
 }
 
 # install vim
@@ -228,9 +229,17 @@ sub install_vim {
 
     # .vimrc
     system("cp .vimrc $userhome/");
-    system "chown $user:$user $userhome/.vimrc";
     # for root
     system("cp .vimrc /root/");
+
+    system "echo 'alias vi=\"vim\"' >> $userhome/.profile";
+    system "echo >> $userhome/.profile";
+    system "echo 'alias vi vim' >> /root/.cshrc";
+    system "echo >> /root/.cshrc";
+
+    # fortune
+    system "cp vim-tips /usr/share/games/fortune/";
+    system "strfile -c % /usr/share/games/fortune/vim-tips /usr/share/games/fortune/vim-tips.dat";
 }
 
 # install fn_key controller
@@ -245,11 +254,12 @@ sub install_redshift {
     system "pkg install -y redshift";
 }
 
-# music player
-sub install_audacious {
-    system "pkg install -y audacious";
-    system "pkg install -y audacious-plugins";
-    system "pkg install -y audacious-skins";
+sub install_vlc {
+    system "pkg install -y install_vlc";
+}
+
+sub install_nomacs {
+    system "pkg install -y nomacs";
 }
 
 sub install_firefox {
@@ -285,6 +295,9 @@ sub install_openjdk11 {
     system "pkg install -y openjdk11";
     system "echo 'export JAVA_HOME=/usr/local/openjdk11' >> $userhome/.profile";
     system "echo 'export PATH=\$JAVA_HOME/bin:\$PATH' >> $userhome/.profile";
+
+    system "echo 'setenv JAVA_HOME /usr/local/openjdk11' >> /root/.cshrc";
+    system "echo 'setenv PATH \$JAVA_HOME/bin:\$PATH' >> /root/.cshrc";
 }
 
 sub conf_linux_bin_compatibility {
