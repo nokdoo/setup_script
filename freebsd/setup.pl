@@ -81,6 +81,8 @@ system "pkg install -y sqlitebrowser";
 #install hexchat
 system "pkg install -y hexchat";
 
+install_scrot();
+
 # Removing vesa error on /var/log/messsages by this command.
 # But the error is nothing, just ignore it.
 # system "echo kern.vty=sc >> /boot/loader.conf";
@@ -327,4 +329,10 @@ sub conf_linux_bin_compatibility {
     #system "mount /compat/linux/sys";
     #system "echo 'tmpfs    /compat/linux/dev/shm	tmpfs	rw,mode=1777	0	0' >> /etc/fstab";
     #system "mount /compat/linux/dev/shm";
+}
+
+sub install_scrot {
+    system "pkg install -y scrot";
+    system "sudo -u $user mkdir -p $userhome/Pictures" ;
+
 }
