@@ -37,6 +37,9 @@ set $HOME ~
 # turn on redshift
 exec --no-startup-id redshift -t 4300:4500
 
+# screenshot
+bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.png' -e 'mv $f ~/Pictures/'
+
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && killall -USR1 i3status #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && killall -USR1 i3status #decrease sound volume
