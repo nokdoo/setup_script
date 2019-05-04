@@ -1,0 +1,84 @@
+<RhodiumToad> oh, someone else with a linux printer driver
+<RhodiumToad> what printer, out of interest?
+<nokdoot> Samsung M2024
+<nokdoot> SL-M2024
+<RhodiumToad> I have a samsung ML1670
+<RhodiumToad> what I do currently is that I have the linux binary of the driver in the freebsd file tree, having figured out what files to put where from the install script
+<RhodiumToad> what I did before with an older version of the driver was to install all of linux cups (not just the client) inside /compat/linux, and install the driver in there too
+<RhodiumToad> but that needed some fairly painful fiddling with things
+<nokdoot> I just used ppd file when I add printer on cups page, but printer's status was idle, and it did not work :<
+<RhodiumToad> what binaries are there in the driver package?
+<RhodiumToad> hm, it might even be the same driver I have? what's the driver filename?
+* Offering 'uld_v1.00.36_00.91.tar.gz' to RhodiumToad
+<nokdoot> I downloaded this
+<RhodiumToad> it's the exact same one I have
+<RhodiumToad> you can get it working, or should be able to, by just installing 3 files
+<nokdoot> Ohh..
+<RhodiumToad> rastertospl goes in /usr/local/libexec/cups/filter
+<RhodiumToad> libscmssc.so  goes in /compat/linux/usr/lib64
+<RhodiumToad> and then the .ppd for your printer model goes in /usr/local/share/cups/model/samsung  or you can just upload it into cups from the admin screen
+<RhodiumToad> I even made a port to install mine for me
+<RhodiumToad> oh, you need a bunch of linux packages to be installed
+<RhodiumToad> base cups-libs gnutls avahi-libs tiff png libgcrypt jpeg libgpg-error libtasn1 dbuslibs
+<RhodiumToad> i.e. linux-c6-*  for all of those
+<nokdoot> Ahhhhh hahaha it's hard to follow haha
+<RhodiumToad> you don't actually need dbus to be running, afaik, but the libs have to be there
+<nokdoot> YOu mean, I have to install them from pkg?
+<RhodiumToad> yes, or ports if that's your thing
+<nokdoot> It's my time for setting FreeBSD, so I don't know what they do, I'm just following you.. and I will check them later
+<nokdoot> You said, cups-libs, avahi-libs, dbuslibs. You meant cups-*, avahi-*, dbus-* ?? there is no *-libs for them on pkg 
+<RhodiumToad> hmm?
+<RhodiumToad> which repo?
+<RhodiumToad> linux-c6-cups-libs-*  for example
+<RhodiumToad> linux-c6-avahi-libs-*  etc.
+<RhodiumToad> those should all be in the pkg repos
+<nokdoot> Ahhh I thought just 'cups-libs', not linux-c6-cups-libs
+<nokdoot> I will do it
+<RhodiumToad> you need the linux versions of those packages so that the rastertospl and libscmssc.so linux binaries can find all the linux libraries that they depend on
+<nokdoot> Umm.. linux-c6-tiff and png are missing
+<RhodiumToad> um
+<RhodiumToad> sec
+<RhodiumToad> there are ports for both, I don't know why the packages would be missing
+<RhodiumToad> which repo are you on?
+<RhodiumToad> ohh
+<RhodiumToad> looks like the package names may have changed to libpng and libtiff
+<RhodiumToad> try linux-c6-libpng  etc.
+<nokdoot> Ahh yesyes I just found out too
+<nokdoot> I searched tiff, not linux-c6 :> haha
+<nokdoot> Hm... almost things already installed, I just installed dbus-libs now
+<RhodiumToad> right, most linux stuff needs most of those things
+<RhodiumToad> if you tried printing anything before installing all this, you'll probably have to enable and start the printer from the cups interface
+<nokdoot> It does not work, so I'm searching log on Online :<
+<RhodiumToad> a couple of quick checks: if you try and run /usr/local/libexec/cups/filter/rastertospl   what happens?
+<nokdoot> https://pastebin.com/WUATNJrP
+<VimDiesel> Title: root@blogvillain:/usr/local/libexec/cups/filter # ./rastertospl INFO: Usage: r - Pastebin.com (at pastebin.com)
+<nokdoot> what that arguments...?
+<RhodiumToad> that's ok, just checking it's executable and it finds all of its libraries
+<RhodiumToad> it's intended to be run by cups, which provides the arguments
+<RhodiumToad> what's the output from  lpstat -a   and  lpstat -p   ?
+<nokdoot> Samsung_M2020_Series accepting requests since Sat Apr 27 17:35:02 2019 //// printer Samsung_M2020_Series is idle.  enabled since Sat Apr 27 17:35:02 2019
+<RhodiumToad> hm. that looks ok. but it's not printing?
+<nokdoot> Yes
+<RhodiumToad> does /usr/local/bin/lpq  show anything queued?
+<RhodiumToad> and how did you try to print?
+<nokdoot> print on any web site
+<nokdoot> On log, localhost - - [27/Apr/2019:17:56:10 +0900] "POST /printers/Samsung_M2020_Series HTTP/1.1" 200 42849 Print-Job client-error-document-format-not-supported
+<RhodiumToad> try something like  echo "test!" | lpr-cups   first
+<nokdoot> lpr-cups: Error - unable to access "first" - No such file or directory
+<RhodiumToad> that's not part of the command
+<RhodiumToad> just  echo "test!" | lpr-cups
+<nokdoot> lpr-cups: Error - No default printer.
+<RhodiumToad> if you haven't installed the cups-filters package (the freebsd one, not the linux one) you probably need it
+<RhodiumToad> echo "test!" | lpr-cups Samsung_M2020_Series
+<RhodiumToad> er no
+<RhodiumToad> I can never remember the command
+<nokdoot> Yes, cups-filters I did not install
+<nokdoot> I'm installing it
+<RhodiumToad> you'll probably want to set your default printer at some point
+* fstd_ is now known as fstd
+<nokdoot> Yesyes
+-NickServ- nokdoot_!~nokdoot@211.205.207.39 has just authenticated as you (nokdoot)
+<RhodiumToad> any luck?
+<nokdoot_> I'm about to reboot
+<nokdoot> .
+

@@ -34,6 +34,10 @@ fuse가 커널에 올라가 있어야 한다.
 /usr/local/share/fonts 폴더에 압축푼 디렉토리를 옮긴 후
 fc-cache 명령어 입력
 
+# 화면 깨짐 about:config 
+smooth 검색 
+false 로 바꾸자
+
 # 마우스 속도 변경
 xinput list
 의 결과에서 마우스의 id를 확인한다
