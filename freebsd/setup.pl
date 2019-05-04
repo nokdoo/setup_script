@@ -18,6 +18,11 @@ change_repo();
 # turn off beep sound
 system("echo 'allscreens_kbdflags=\"-b quiet.off\"' >> /etc/rc.conf");
 
+# copy some configurations
+system "cp .bashrc $userhome/";
+system "cp .profile $userhome/";
+system "cp .cshrc /root/";
+
 # install sudo and add $user to sudo
 install_sudo();
 
@@ -124,6 +129,12 @@ sub install_xorg {
     system("pkg install -y xorg");
     system("echo 'hald_enable=\"YES\"' >> /etc/rc.conf");
     system("echo 'dbus_enable=\"YES\"' >> /etc/rc.conf");
+    
+    system "echo 'xset b off' >> $userhome/.profile";
+    system "echo >> $userhome/.problem";
+    system "echo 'xset b off' >> /root/.cshrc";
+    system "echo >> /root/.cshrc";
+
 }
 
 # install i3
@@ -135,7 +146,7 @@ sub install_i3 {
     system "sudo -u $user mkdir -p $userhome/.config/i3" ;
     system "cp config $userhome/.config/i3/";
     system "cp i3status.conf $userhome/.config/i3/";
-    system "cp i3-new-workspace /usr/local/bin/");
+    system "cp i3-new-workspace /usr/local/bin/";
 }
 
 # install slim(is deprecated by problem with login_conf and unmanaged display manager)
@@ -200,7 +211,7 @@ sub install_xdm {
     # copy .xsession to home
     system("cp .xsession $userhome/");
 
-    system "pkg install -y xsm";
+    #system "pkg install -y xsm";
 }
 
 sub install_bash {
@@ -301,6 +312,7 @@ sub install_openjdk11 {
 
     system "echo 'setenv JAVA_HOME /usr/local/openjdk11' >> /root/.cshrc";
     system "echo 'setenv PATH \$JAVA_HOME/bin:\$PATH' >> /root/.cshrc";
+    # check set_fdescf();
 }
 
 sub conf_linux_bin_compatibility {
