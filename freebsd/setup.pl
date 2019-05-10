@@ -83,6 +83,9 @@ system "pkg install -y hexchat";
 
 install_scrot();
 
+#mount for usb
+install_automount();
+
 # Removing vesa error on /var/log/messsages by this command.
 # But the error is nothing, just ignore it.
 # system "echo kern.vty=sc >> /boot/loader.conf";
@@ -94,6 +97,11 @@ install_scrot();
 print "		open uim-pref-gtk3\n";
 print "		install linux_base-c6\n";
 print "		reboot!!!!\n";
+
+sub echo_to_file {
+    my ($str, $file) = @_;
+    system "echo $str >> $file";
+}
 
 # update/upgrade pkg
 sub update_pkg {
@@ -248,8 +256,8 @@ sub install_vim {
     # for root
     system("cp .vimrc /root/");
 
-    system "echo 'alias vi=\"vim\"' >> $userhome/.profile";
-    system "echo >> $userhome/.profile";
+    system "echo 'alias vi=\"vim\"' >> $userhome/.bashrc";
+    system "echo >> $userhome/.bashrc";
     system "echo 'alias vi vim' >> /root/.cshrc";
     system "echo >> /root/.cshrc";
 
@@ -334,5 +342,8 @@ sub conf_linux_bin_compatibility {
 sub install_scrot {
     system "pkg install -y scrot";
     system "sudo -u $user mkdir -p $userhome/Pictures" ;
+}
 
+sub install_automount {
+    system "pkg install -y automount";
 }

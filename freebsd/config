@@ -38,7 +38,7 @@ set $HOME ~
 exec --no-startup-id redshift -t 4300:4500
 
 # screenshot
-bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.png' -e 'mv $f ~/Pictures/'
+bindsym Print exec scrot -q 100 '%Y-%m-%d-%s_screenshot_$wx$h.png' -e 'mv $f ~/Pictures/'
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && killall -USR1 i3status #increase sound volume
@@ -55,6 +55,8 @@ floating_modifier $mod
 
 # start a terminal
 bindsym Control+$mod+t exec xfce4-terminal 
+bindsym Control+$mod+Return exec xfce4-terminal 
+bindsym Control+$mod+KP_Enter exec xfce4-terminal 
 
 # start firefox
 bindsym Control+$mod+f exec firefox
@@ -124,7 +126,8 @@ bindsym $sup+a focus parent
 #bindsym $mod+d focus child
 
 # set border normal|none|'pixel <px>'
-default_border none
+default_border normal
+for_window [class="Firefox"] border none
 
 # move the currently focused window to the scratchpad
 bindsym $sup+Shift+minus move scratchpad
