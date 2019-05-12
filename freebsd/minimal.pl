@@ -76,7 +76,7 @@ install_caja();
 #system "pkg install -y gitg";
 
 #install sqlitebrowser
-3system "pkg install -y sqlitebrowser";
+#system "pkg install -y sqlitebrowser";
 
 #install hexchat
 system "pkg install -y hexchat";

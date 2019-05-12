@@ -37,6 +37,8 @@ set scrolloff=8 "search 결과의 위치를 화면 아래에서 8만큼 띄움
 "filetype plugin on
 "set omnifunc=syntaxcomplete#Complete
 
+nnoremap <S-H> :set hlsearch!<CR>
+nnoremap <S-N> :set number!<CR>
 
 "markdown 하이라이트
 hi markdownItalic cterm=italic ctermfg=lightmagenta
