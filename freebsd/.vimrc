@@ -6,6 +6,7 @@ set ai                    " auto indent
 set si					" smart indent
 "set cindent            " c style indent
 set shiftwidth=4      " shift를 4칸으로 ( >, >>, <, << 등의 명령어)
+set shiftround
 set tabstop=4         " tab을 4칸으로
 set softtabstop=4
 set expandtab       " tab 대신 띄어쓰기로
@@ -20,11 +21,13 @@ set history=20    " 명령어에 대한 히스토리를 20개까지
 set ruler              " 상태표시줄에 커서의 위치 표시
 "set nobackup      " 백업파일을 만들지 않음
 set title               " 제목을 표시
-"set showmatch    " 매칭되는 괄호를 보여줌
+set showmatch      " 매칭되는 괄호를 보여줌
+set matchtime=1    " 매칭되는 괄호를 보여주는 시간 (10 분의 n초)
 "set nowrap         " 자동 줄바꿈 하지 않음
 "set wmnu           " tab 자동완성시 가능한 목록을 보여줌
 syntax on " 문법 하이라이트 킴"
 set scrolloff=8 "search 결과의 위치를 화면 아래에서 8만큼 띄움
+set cursorline      " 현재 커서 위치를 표시
 
 "
 "set mouse=a
@@ -37,10 +40,24 @@ set scrolloff=8 "search 결과의 위치를 화면 아래에서 8만큼 띄움
 "filetype plugin on
 "set omnifunc=syntaxcomplete#Complete
 
-" 하이라이트 토글링
-" nnoremap <C-S-H> :set hlsearch!<CR>
+" mapping, 항상 non-recursive mapping 을 사용하자.
+
+" imap
+" 한 줄 삭제
+inoremap <c-d> <esc>dd
+
+
 " 라인번호 토글링
-" nnoremap <C-S-N> :set number!<CR>
+nnoremap <F5> :set number!<CR>
+
+" 하이라이트 토글링
+nnoremap <F6> :set hlsearch!<CR>
+
+" select word
+nnoremap <space> viwh 
+
+" escape HTML tag
+" vnoremap <F5> '<,'>s/
 
 "markdown 하이라이트
 hi markdownItalic cterm=italic ctermfg=lightmagenta
@@ -51,10 +68,10 @@ hi markdownCode ctermbg=darkgreen
 
 "ctags
 "map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR> "tab으로 열기
-map <C-\>l :vsp <CR>:exec("tag ".expand("<cword>"))<CR><C-W>r
-map <C-\>h :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-map <C-\>k :sp <CR>:exec("tag ".expand("<cword>"))<CR>
-map <C-\>j :sp <CR>:exec("tag ".expand("<cword>"))<CR><C-W>r
+noremap <C-\>l :vsp <CR>:exec("tag ".expand("<cword>"))<CR><C-W>r
+noremap <C-\>h :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+noremap <C-\>k :sp <CR>:exec("tag ".expand("<cword>"))<CR>
+noremap <C-\>j :sp <CR>:exec("tag ".expand("<cword>"))<CR><C-W>r
 
 
 "mojo 하이라이트
@@ -72,4 +89,4 @@ map <C-\>j :sp <CR>:exec("tag ".expand("<cword>"))<CR><C-W>r
 "복붙기능 - xclip 필요
 "vmap <C-c> : '<,'>w! ~/xclip \| !xclip -sel clip < ~/xclip <ENTER> <ENTER>
 "set clipboard=unnamedplus - 아래를 쓰려면 필요하다는데 없어도 되더라
-vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+vnoremap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR><Return>
